@@ -10,7 +10,6 @@ const CORE_ASSETS = [
   "./icon-512.png",
 ];
 
-// Instalacja: zapisanie zasobów w cache
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches
@@ -20,7 +19,6 @@ self.addEventListener("install", (event) => {
   );
 });
 
-// Usunięcie starych wersji cache
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches
@@ -34,7 +32,6 @@ self.addEventListener("activate", (event) => {
   );
 });
 
-// Strategia: cache-first, uzupełnianie z sieci w tle (stale-while-revalidate)
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
 
