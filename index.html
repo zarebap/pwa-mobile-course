@@ -16,18 +16,51 @@
     <div class="area-b">b</div>
     <div class="area-c">c</div>
     <div class="area-d">d</div>
-    <div class="area-e">e</div>
+    <div class="area-e">
+      <span>e</span>
+      <button id="install-btn" class="install-btn" hidden>Zainstaluj aplikację</button>
+    </div>
     <div class="area-f">f</div>
   </div>
 
   <script>
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js").catch((err) => {
-          console.error("Rejestracja service workera nie powiodła się:", err);
-        });
+        navigator.serviceWorker
+          .register("./sw.js")
+          .then((reg) => console.log("SW zarejestrowany, scope:", reg.scope))
+          .catch((err) => {
+            console.error("Rejestracja service workera nie powiodła się:", err);
+          });
       });
     }
+
+    const installBtn = document.getElementById("install-btn");
+    let deferredPrompt = null;
+
+    const isStandalone =
+      window.matchMedia("(display-mode: standalone)").matches ||
+
+    window.addEventListener("beforeinstallprompt", (event) => {
+      event.preventDefault(); 
+      deferredPrompt = event;
+      if (!isStandalone) installBtn.hidden = false;
+    });
+
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log("Wynik instalacji:", outcome);
+      deferredPrompt = null;
+      installBtn.hidden = true; 
+    });
+
+    window.addEventListener("appinstalled", () => {
+      console.log("Aplikacja zainstalowana");
+      deferredPrompt = null;
+      installBtn.hidden = true;
+    });
+
+    if (isStandalone) installBtn.hidden = true;
   </script>
 </body>
 </html>

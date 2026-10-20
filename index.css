@@ -60,3 +60,20 @@
             "f f f f";
     }
 }
+
+.install-btn {
+  margin-top: 0.75rem;
+  padding: 0.6rem 1.2rem;
+  border: 1px solid #7aa2e0;
+  border-radius: 999px;
+  background: #e3eaf5;
+  color: #1d3557;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.install-btn:active {
+  transform: scale(0.97);
+}
