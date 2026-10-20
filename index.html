@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#e3eaf5">
   <title>cosik</title>
   <link rel="stylesheet" href="index.css">
   <link rel="manifest" href="./manifest.json">
+  <link rel="apple-touch-icon" href="./icon-192.png">
 </head>
 <body>
   <div class="grid">
@@ -16,5 +18,15 @@
     <div class="area-e">e</div>
     <div class="area-f">f</div>
   </div>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch((err) => {
+          console.error("Rejestracja service workera nie powiodła się:", err);
+        });
+      });
+    }
+  </script>
 </body>
 </html>
