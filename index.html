@@ -40,18 +40,22 @@
 
     const isStandalone =
       window.matchMedia("(display-mode: standalone)").matches ||
+      window.navigator.standalone === true; 
 
     window.addEventListener("beforeinstallprompt", (event) => {
       event.preventDefault(); 
       deferredPrompt = event;
-      if (!isStandalone) installBtn.hidden = false;
+      console.log("beforeinstallprompt odebrany ✔");
     });
 
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      console.log("Wynik instalacji:", outcome);
-      deferredPrompt = null;
-      installBtn.hidden = true; 
+    installBtn.addEventListener("click", async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log("Wynik instalacji:", outcome);
+        deferredPrompt = null;
+        return;
+      }
     });
 
     window.addEventListener("appinstalled", () => {
@@ -60,7 +64,7 @@
       installBtn.hidden = true;
     });
 
-    if (isStandalone) installBtn.hidden = true;
+    if (!isStandalone) installBtn.hidden = false;
   </script>
 </body>
 </html>
