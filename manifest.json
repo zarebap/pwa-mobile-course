@@ -1,9 +1,15 @@
+
 {
   "manifest_version": 3,
   "name": "pwa-mobile-course",
   "version": "1.0.0",
   "description": "super stronka",
-  "icons": {
-    "128": "public/capybara.png"
-  }
+  "icons": [
+    {
+      "src": "capybara.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    }
+  ]
 }
+
