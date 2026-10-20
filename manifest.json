@@ -6,7 +6,7 @@
   "description": "super stronka",
   "icons": [
     {
-      "src": "capybara.png",
+      "src": "public/capybara.png",
       "sizes": "128x128",
       "type": "image/png"
     }
