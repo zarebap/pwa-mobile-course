@@ -23,7 +23,7 @@
 
             function showPosition(position) {
                 const { latitude, longitude, accuracy, speed } = position.coords;
-                let text = `Szerokość: ${latitude.toFixed(6)}, długość: ${longitude.toFixed(6)} (dokładność ±${Math.round(accuracy)} m)`;
+                let text = `Szerokość: ${latitude.toFixed(6)}, długość: ${longitude.toFixed(6)}`;
 
                 if (speed !== null) {
                     text += `, prędkość: ${(speed * 3.6).toFixed(1)} km/h`;
