@@ -9,6 +9,7 @@
         <p id="location">Lokalizacja: </p>
         <p id="orientation">alpha: —, beta: —, gamma: —</p>
         <p id="motion">accelerationIncludingGravity: —, rotationRate: —</p>
+        <button id="vibrate">Wibracja 1 s</button>
 
         <script>
             const locationOutput = document.getElementById('location');
@@ -31,6 +32,10 @@
                 motionOutput.textContent =
                     `accelerationIncludingGravity: x=${acc?.x}, y=${acc?.y}, z=${acc?.z}, ` +
                     `rotationRate: alpha=${rot?.alpha}, beta=${rot?.beta}, gamma=${rot?.gamma}`;
+            });
+
+            document.getElementById('vibrate').addEventListener('click', () => {
+                navigator.vibrate?.(1000);
             });
         </script>
     </body>
