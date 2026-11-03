@@ -8,6 +8,7 @@
     <body>
         <p id="location">Lokalizacja: </p>
         <p id="orientation">alpha: —, beta: —, gamma: —</p>
+        <p id="motion">accelerationIncludingGravity: —, rotationRate: —</p>
 
         <script>
             const locationOutput = document.getElementById('location');
@@ -19,6 +20,17 @@
 
             window.addEventListener('deviceorientation', (event) => {
                 orientationOutput.textContent = `alpha: ${event.alpha}, beta: ${event.beta}, gamma: ${event.gamma}`;
+            });
+
+            const motionOutput = document.getElementById('motion');
+
+            window.addEventListener('devicemotion', (event) => {
+                const acc = event.accelerationIncludingGravity;
+                const rot = event.rotationRate;
+
+                motionOutput.textContent =
+                    `accelerationIncludingGravity: x=${acc?.x}, y=${acc?.y}, z=${acc?.z}, ` +
+                    `rotationRate: alpha=${rot?.alpha}, beta=${rot?.beta}, gamma=${rot?.gamma}`;
             });
         </script>
     </body>
