@@ -7,39 +7,19 @@
     </head>
     <body>
         <p id="location">Lokalizacja: </p>
+        <p id="orientation">alpha: —, beta: —, gamma: —</p>
 
         <script>
-            const output = document.getElementById('location');
+            const locationOutput = document.getElementById('location');
+            const orientationOutput = document.getElementById('orientation');
 
-            if (!navigator.geolocation) {
-                output.textContent = 'Geolokalizacja nie jest wspierana przez tę przeglądarkę.';
-            } else {
-                navigator.geolocation.watchPosition(showPosition, showError, {
-                    enableHighAccuracy: true,
-                    maximumAge: 0,
-                    timeout: 10000,
-                });
-            }
+            navigator.geolocation.watchPosition((position) => {
+                locationOutput.textContent = `Szerokość: ${position.coords.latitude}, długość: ${position.coords.longitude}`;
+            });
 
-            function showPosition(position) {
-                const { latitude, longitude, accuracy, speed } = position.coords;
-                let text = `Szerokość: ${latitude.toFixed(6)}, długość: ${longitude.toFixed(6)}`;
-
-                if (speed !== null) {
-                    text += `, prędkość: ${(speed * 3.6).toFixed(1)} km/h`;
-                }
-
-                output.textContent = text;
-            }
-
-            function showError(error) {
-                const messages = {
-                    1: 'brak zgody na dostęp do lokalizacji',
-                    2: 'lokalizacja niedostępna',
-                    3: 'przekroczono czas oczekiwania',
-                };
-                output.textContent = `Błąd: ${messages[error.code] ?? error.message}`;
-            }
+            window.addEventListener('deviceorientation', (event) => {
+                orientationOutput.textContent = `alpha: ${event.alpha}, beta: ${event.beta}, gamma: ${event.gamma}`;
+            });
         </script>
     </body>
 </html>
