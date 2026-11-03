@@ -21,6 +21,17 @@
                 });
             }
 
+            function showPosition(position) {
+                const { latitude, longitude, accuracy, speed } = position.coords;
+                let text = `Szerokość: ${latitude.toFixed(6)}, długość: ${longitude.toFixed(6)}`;
+
+                if (speed !== null) {
+                    text += `, prędkość: ${(speed * 3.6).toFixed(1)} km/h`;
+                }
+
+                output.textContent = text;
+            }
+
             function showError(error) {
                 const messages = {
                     1: 'brak zgody na dostęp do lokalizacji',
