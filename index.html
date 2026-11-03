@@ -8,6 +8,7 @@
     <body>
         <p id="location">Lokalizacja: </p>
         <p id="orientation">alpha: —, beta: —, gamma: —</p>
+        <p id="screen-orientation">orientacja ekranu: —</p>
         <p id="motion">accelerationIncludingGravity: —, rotationRate: —</p>
         <button id="vibrate">Wibracja 1 s</button>
 
@@ -22,6 +23,16 @@
             window.addEventListener('deviceorientation', (event) => {
                 orientationOutput.textContent = `alpha: ${event.alpha}, beta: ${event.beta}, gamma: ${event.gamma}`;
             });
+
+            const screenOrientationOutput = document.getElementById('screen-orientation');
+            const portrait = window.matchMedia('(orientation: portrait)');
+
+            function showScreenOrientation() {
+                screenOrientationOutput.textContent = `orientacja ekranu: ${portrait.matches ? 'portrait' : 'landscape'}`;
+            }
+
+            portrait.addEventListener('change', showScreenOrientation);
+            showScreenOrientation();
 
             const motionOutput = document.getElementById('motion');
 
