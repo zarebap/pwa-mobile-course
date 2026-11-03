@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pl">
     <head>
         <meta charset="UTF-8">
@@ -6,6 +6,27 @@
         <title>Lokalizacja</title>
     </head>
     <body>
-        <p>no hej </p>
+        <p id="location">Lokalizacja: </p>
+
+        <script>
+            const output = document.getElementById('location');
+
+            if (!navigator.geolocation) {
+                output.textContent = 'Geolokalizacja nie jest wspierana przez tę przeglądarkę.';
+            } else {
+                navigator.geolocation.watchPosition(showPosition, showError, {
+                    enableHighAccuracy: true,
+                    maximumAge: 0,
+                    timeout: 10000,
+                });
+            }
+
+            function showPosition(position) {
+                const { latitude, longitude, accuracy, speed } = position.coords;
+                let text = `Szerokość: ${latitude.toFixed(6)}, długość: ${longitude.toFixed(6)}`;
+
+                output.textContent = text;
+            }
+        </script>
     </body>
 </html>
